@@ -4,3 +4,4 @@ This is a codealong to see how to properly make a TDD API using rails, rspec and
 GEMS Used
 - rspec-rails
 - factory_bot_rails
+- jsonapi-serializer
