@@ -38,5 +38,6 @@ group :development do
   gem 'spring'
 end
 
+gem 'jsonapi_errors_handler'
 gem 'jsonapi-serializer'
 gem 'jsom-pagination', '~> 0.1.3'
