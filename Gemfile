@@ -39,3 +39,4 @@ group :development do
 end
 
 gem 'jsonapi-serializer'
+gem 'jsom-pagination', '~> 0.1.3'

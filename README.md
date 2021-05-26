@@ -5,6 +5,9 @@ GEMS Used
 - rspec-rails
 - factory_bot_rails
 - jsonapi-serializer
+- jsom-pagination, which is wrapper for pagy
+- pagy 
+
 
 ruby 2.7.2
 Rails 6.1.3.1
