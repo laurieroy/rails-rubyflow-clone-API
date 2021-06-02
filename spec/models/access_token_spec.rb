@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AccessToken, type: :model do
-  describe '#validatons' do
+  xdescribe '#validations' do
     xit 'has a valid factory' do
       access_token = build :access_token
       expect(access_token).to be_valid
@@ -15,13 +15,20 @@ RSpec.describe AccessToken, type: :model do
 
   describe "#new" do
     it "should have a token present after initialization" do
-      expect(AccessToken.new.token).to  be_present
+      expect(AccessToken.new.token).to be_present
     end
     
-    it "generates an uniq token" do
+  it "generates an uniq token" do
       user = create :user
-      expect{ user.create_access_token }.to  change{ AccessToken.count }.by(1)
+      expect{ user.create_access_token }.to change{ AccessToken.count }.by(1)
       expect(user.build_access_token).to be_valid
+    end
+
+    it "generates a token only once" do
+      user = create :user
+      access_token = user.create_access_token
+
+      expect(access_token.token).to eq(access_token.reload.token)
     end
   end
   
