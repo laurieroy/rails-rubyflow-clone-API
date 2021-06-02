@@ -56,6 +56,10 @@ describe UserAuthenticator do
 				expect(authenticator.user).to eq(user)
 			end
 
+			it "creates and sets user's access token" do
+				expect{ subject }.to change{ AccessToken.count }.by(1)
+				expect(authenticator.access_token).to be_present
+			end
 		end
 	end
 end
