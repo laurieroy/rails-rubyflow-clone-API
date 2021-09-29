@@ -3,7 +3,7 @@ class AccessToken < ApplicationRecord
   after_initialize :generate_token
 
   # validates :user, presence: true
-  # validates :token, presence: true
+  validates :token, presence: true, uniqueness: true
 
   private
 

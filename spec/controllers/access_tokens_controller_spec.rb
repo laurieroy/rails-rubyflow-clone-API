@@ -15,12 +15,12 @@ RSpec.describe AccessTokensController, type: :controller do
 			end
 
 			subject { post :create, params: { code: 'invalid_code' } }
-			it_behaves_like "unauthorized_requests"
+			it_behaves_like "unauthorized_oauth_requests"
 		end
 
 		context "when no code is provided" do
 			subject { post :create }
-			it_behaves_like "unauthorized_requests"
+			it_behaves_like "unauthorized_oauth_requests"
 		end
 
 		context "when success request" do
@@ -46,6 +46,7 @@ RSpec.describe AccessTokensController, type: :controller do
 
 			it "returns 201 status_code" do
 				subject
+
 				expect(response).to have_http_status :created
 			end
 
@@ -69,7 +70,7 @@ RSpec.describe AccessTokensController, type: :controller do
 
 		context "when invalid authorizaton header is provided" do
 			before { request.headers['authorization'] = "Invalid token" }
-			subject { delete :destroy }
+			# subject { delete :destroy }
 
 			it_behaves_like "forbidden_requests"
 		end
@@ -82,6 +83,7 @@ RSpec.describe AccessTokensController, type: :controller do
 
 			it "returns 204 status code" do
 				subject
+				
 				expect(response).to have_http_status :no_content
 			end
 

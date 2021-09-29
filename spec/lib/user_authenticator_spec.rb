@@ -45,7 +45,7 @@ describe UserAuthenticator do
 # Tutorial passes this test, but if run code out of order, no way to know last saved user was Jane Doe
 			it "saves the user if user does not exist" do
 				expect{ subject }.to change{ User.count }.by(1)
-				# expect(User.last.name).to eq('Jane Doe')
+				expect(User.last.name).to eq('Jane Doe')
 				# expect(authenticator.user).to be_nil
 			end
 
