@@ -8,17 +8,19 @@ shared_context "json errors" do
 				"status" => "401",
 				"source" => { "pointer" => "/code" },
 				"title" =>  "Authentication code is invalid",
-				"detail" => "You must provide a valid code in order to exchange it for a token."
+				"detail" => "You must provide a valid code to exchange it for a token."
 			}
 		end
 
 		it "returns a 401 status code" do
 			subject
+
 			expect(response).to have_http_status(401)
 		end
 
 		it "returns a proper error body" do
 			subject
+
 			expect(json["errors"]).to include(authentication_error)
 		end
 	end
@@ -28,7 +30,7 @@ shared_context "json errors" do
 		let(:authorization_error) do
 			{
 				"status" => "403",
-				"source" => { "pointer" => "/headers/authorizations" },
+				"source" => { "pointer" => "request/headers/authorization" },
 				"title" =>  "Not Authorized",
 				"detail" => "You are not authorized to access this resource."
 			}
@@ -41,7 +43,8 @@ shared_context "json errors" do
 
 		it "returns proper error json" do
 			subject
-			expect(json["error"]).to eq(authorization_error)
+			
+			expect(json["errors"]).to include(authorization_error)
 		end
 	end
 
@@ -55,12 +58,12 @@ shared_context "json errors" do
 			}
 		end
 
-		it "should return 404 status code" do
+		it "returns 404 status code" do
 			subject
 			expect(response).to have_http_status(:not_found)
 		end
 
-		it "should return proper error json" do
+		it "returns proper error json" do
 			subject
 			expect(json["errors"]).to include(not_found_error)
 		end

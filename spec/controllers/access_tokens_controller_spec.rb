@@ -1,9 +1,10 @@
 require "rails_helper"
+# require "../support/shared/json_errors.rb"
 
 RSpec.describe AccessTokensController, type: :controller do
-	describe "#create" do
+	describe "POST #create" do
 
-		context "when invalid code is provided" do
+		context "when an invalid code is provided" do
 			let(:github_error) {
 				double("Sawyer::Resource", error: "bad_verification_code")
 			}
@@ -15,11 +16,13 @@ RSpec.describe AccessTokensController, type: :controller do
 			end
 
 			subject { post :create, params: { code: 'invalid_code' } }
+
 			it_behaves_like "unauthorized_oauth_requests"
 		end
 
 		context "when no code is provided" do
 			subject { post :create }
+
 			it_behaves_like "unauthorized_oauth_requests"
 		end
 
@@ -63,7 +66,7 @@ RSpec.describe AccessTokensController, type: :controller do
 	describe "DELETE #destroy" do
 		subject { delete :destroy }
 
-		context "when no authorization header provided" do
+		context "when no authorization header is provided" do
 		
 			it_behaves_like "forbidden_requests"
 		end

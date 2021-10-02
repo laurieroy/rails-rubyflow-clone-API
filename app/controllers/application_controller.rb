@@ -27,19 +27,12 @@ class ApplicationController < ActionController::API
 		@access_token = AccessToken.find_by(token: provided_token)
 	end
 
-	def handle_validation_error(error)
-		error_model = error.try(:model) || error.try(:record)
-		mapped = JsonapiErrorsHandler::Errors::Invalid.new(errors: error_model.errors)
-		render_error(mapped)
-	end
-
-
 	def authentication_error
 		error = {
 			"status" => "401",
 			"source" => { "pointer" => "/code" },
 			"title" =>  "Authentication code is invalid",
-			"detail" => "You must provide valid code in order to exchange it for token."
+			"detail" => "You must provide a valid code to exchange it for a token."
 		}
 		render json: { "errors": [ error ] }, status: 401
 	end
@@ -60,5 +53,11 @@ class ApplicationController < ActionController::API
 
 	def current_user
 		@current_user = access_token&.user
+	end
+
+	def handle_validation_error(error)
+		error_model = error.try(:model) || error.try(:record)
+		mapped = JsonapiErrorsHandler::Errors::Invalid.new(errors: error_model.errors)
+		render_error(mapped)
 	end
 end
