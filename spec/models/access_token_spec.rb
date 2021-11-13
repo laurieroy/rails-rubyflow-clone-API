@@ -1,26 +1,37 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe AccessToken, type: :model do
-  describe '#validatons' do
-    xit 'has a valid factory' do
-      access_token = build :access_token
-      expect(access_token).to be_valid
+  describe "#validatons" do
+    before do
+      @access_token = create(:access_token)
     end
 
-    xit 'validates token' do
-      access_token = build :access_token, token: nil, user_id: nil
-      expect(access_token).not_to be_valid
+    it "has a valid factory" do
+      expect(@access_token).to be_valid
+    end
+
+    it "is invalid without token" do
+      @access_token.token = nil
+      
+      expect(@access_token).not_to be_valid
+    end
+
+    it "is required to have an user assocation" do
+      @access_token.user_id = nil
+      
+      expect(@access_token).not_to be_valid
     end
   end
 
   describe "#new" do
-    it "should have a token present after initialization" do
-      expect(AccessToken.new.token).to  be_present
+    it "has a token present after initialization" do
+      expect(AccessToken.new.token).to be_present
     end
     
     it "generates an uniq token" do
       user = create :user
-      expect{ user.create_access_token }.to  change{ AccessToken.count }.by(1)
+
+      expect{ user.create_access_token }.to change{ AccessToken.count }.by(1)
       expect(user.build_access_token).to be_valid
     end
   end

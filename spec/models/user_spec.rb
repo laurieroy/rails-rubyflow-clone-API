@@ -15,7 +15,7 @@ RSpec.describe User, type: :model do
 
     xit 'returns an error when login is missing' do
       user = build :user, login: nil
-      byebug
+      
       expect(user.errors.messages[:login]).to include("can't be blank")
     end
 

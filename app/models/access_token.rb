@@ -2,8 +2,7 @@ class AccessToken < ApplicationRecord
   belongs_to :user
   after_initialize :generate_token
 
-  # validates :user, presence: true
-  # validates :token, presence: true
+  validates :token, presence: true
 
   private
 
