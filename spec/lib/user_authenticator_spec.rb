@@ -3,6 +3,7 @@ require "rails_helper"
 describe UserAuthenticator do
 	describe "#perform" do
 		let(:authenticator) { described_class.new("sample_code") }
+		
 		subject { authenticator.perform }
 
 		context "when code is incorrect" do
@@ -52,7 +53,7 @@ describe UserAuthenticator do
 			it 'reuses already registered user' do
 				user = create :user, user_data
 
-				expect{ subject }.not_to  change{ User.count}
+				expect{ subject }.not_to  change{ User.count }
 				expect(authenticator.user).to eq(user)
 			end
 
