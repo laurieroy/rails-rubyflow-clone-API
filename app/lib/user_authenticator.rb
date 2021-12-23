@@ -1,7 +1,7 @@
 require "octokit"
 class UserAuthenticator
 	class AuthenticationError < StandardError; end
-
+# TODO refactor to use JsonapiErrorsHandler or regular errors
 	attr_reader :user, :access_token
 
 	def initialize(code)
