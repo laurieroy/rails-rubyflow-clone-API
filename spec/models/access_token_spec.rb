@@ -35,12 +35,12 @@ RSpec.describe AccessToken, type: :model do
       expect(user.build_access_token).to be_valid
     end
 
-    # it "generates a token only once" do
-    #   user = create :user
-    #   access_token = user.create_access_token
+    it "generates a token only once" do
+      user = create :user
+      access_token = user.create_access_token
 
-    #   expect(access_token.token).to eq(access_token.reload.token)
-    # end
+      expect(access_token.token).to eq(access_token.reload.token)
+    end
   end
   
 end
