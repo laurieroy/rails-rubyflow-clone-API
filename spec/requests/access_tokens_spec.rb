@@ -4,7 +4,6 @@ require "rails_helper"
  	describe "#create" do
 
  		shared_examples_for "unauthorized_requests" do
-
  			let(:error) do
  				{
  					"status" => "401",
@@ -71,11 +70,11 @@ require "rails_helper"
  				expect(response).to have_http_status :created
  			end
 
- 			it "returns proper json body" do
- 				expect{ subject }.to change{ User.count }.by(1)
+ 			it "returns a proper json body" do
+ 				expect{ subject }.to change { User.count }.by(1)
  				user = User.find_by(login: 'jdoe1')
-
- 				expect(json_data['attributes']).to eq(			
+byebug
+ 				expect(json_data['attributes']).to include(			
  					{'token' => user.access_token.token })
  			end
  		end
